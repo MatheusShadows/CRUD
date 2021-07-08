@@ -1,3 +1,28 @@
 .txt{
     background-color: blueviolet;
+    color: crimson;
+}
+.table{
+    width: 100%;
+    border: 1px solid black;
+}
+.firsttable{
+    width: 100%;
+    border: 1px solid black;
+}
+.card{
+    position: fixed; top:25%; left:25%;
+    width: 100%;
+    height: auto;
+    background-color: rgb(3, 18, 61);
+    color: white;
+    border: 3px royalblue solid;
+    border-radius: 15px;
+    padding: 2% 2% 2% 2%;
+}
+.submit{
+    cursor: pointer;
+    color: gold;
+    background-color: rgb(3, 18, 63);
+    padding: 4px 4px 4px 4px;
 }

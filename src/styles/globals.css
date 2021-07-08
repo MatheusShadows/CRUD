@@ -1,0 +1,25 @@
+table, th, td
+{
+    width: 100%;
+    border: solid 1px #DDD;
+    border-collapse: collapse;
+    padding: 2px 3px;
+    text-align: center;
+    margin-left: -25px;
+}
+html{
+    background-color: rgb(1, 12, 46);
+    color: wheat;
+}
+h1{
+    text-align: center;
+    font-size: 40px;
+}
+
+button
+{
+    cursor: pointer;
+    border: none;
+    color: rgb(90, 124, 238);
+    padding: 4px 4px 4px 4px;
+}

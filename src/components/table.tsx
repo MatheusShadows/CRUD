@@ -9,7 +9,7 @@ import card from '../styles/App.module.css';
 import api from '../services/api';
 import { SelectButton } from 'primereact/selectbutton';
 import { InputNumber } from 'primereact/inputnumber';
-
+import { Tag } from 'primereact/tag';
 
 interface IContrato{
     id: number;
@@ -60,6 +60,9 @@ const Table = () =>{
     const [nomedevedor, setNomedevedor] = useState('');
     const [numerocontrato, setNumerocontrato] = useState<number>(0);
     const [iD, setID] = useState(0)
+    const statuses = [{
+      name: 'Vigente', value: true},
+      {name: 'Não Vigente', value: false}];
     const options = [{
       name: 'Vigente', value: true},
       {name: 'Não Vigente', value: false}];
@@ -81,21 +84,8 @@ const Table = () =>{
 }
 
     const dt = useRef(null);
-    // const onStatusChange = (e:any) => {
-    //     dt.current.filter(e.value, 'status', 'equals');
-    //     setSelectedStatus(e.value);
-    // }
-    const statusItemTemplate = (option:any) => {
-        return <span className={`customer-badge status-${option}`}>{option}</span>;
-    }
- //   const statusFilter = <Dropdown value={selectedStatus} options={statuses} onChange={onStatusChange} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
-    function Status(estado:boolean){
-        if (estado == true) {
-            return ('Vigente');
-          }else{
-            return ('Não Vigente');
-          }
-    }
+
+  const statusFilter = <Dropdown optionLabel="name" optionValue="value" value={selectedStatus} options={statuses} onChange={(e) => setSelectedStatus(e.value)} placeholder="Select a Status" className="p-column-filter" showClear />;
     const header = (
         <div className="table-header">
             <span className="p-input-icon-left">
@@ -147,6 +137,20 @@ const Table = () =>{
         <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={Delete} />
     </React.Fragment>
   );
+  const statusBodyTemplate = (rowData: any) => {
+      if(rowData.statuscontrato == true){
+        return (
+        <React.Fragment>
+          <Tag className="p-mr-2" icon="pi pi-check" severity="success" value="Vigente"></Tag>
+        </React.Fragment>)}
+        else{
+        return (
+          <React.Fragment>
+          <Tag className="p-mr-2" icon="pi pi-exclamation-triangle" severity="warning" value="Não Vigente"></Tag>
+        </React.Fragment>)}
+        
+        } 
+
   
     
     return (
@@ -176,8 +180,8 @@ const Table = () =>{
                     globalFilter={globalFilter} emptyMessage="Nenhum contrato encontrado.">
                     <Column field="nomedevedor" header="Nome Devedor"  filter filterPlaceholder="Buscar por Nome" />
                     <Column field="empresa" filterField="empresa" header="Empresa"  filter filterPlaceholder="Buscar por Empresa"/>
-                    <Column field="numerocontrato" filterField="numerocontrato" header="Numero Contrato"  filter filterPlaceholder="Buscar por Nº"/>
-                    <Column field={Status(contratosLista.statuscontrato)} header="Status Contrato"  filter />
+                    <Column field="numerocontrato" filterField="numerocontrato" filter header="Numero Contrato" filterPlaceholder="Buscar por Nº"/>
+                    <Column header="Status Contrato" body={statusBodyTemplate} />
                     <Column header="Editar/Excluir" body={actionBodyTemplate}/>
                     </DataTable>
             </div>
